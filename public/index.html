@@ -51,41 +51,45 @@
         <script>
 function Send(){
   alert("yes")
-
-url = "https://digital-sherlock.herokuapp.com/transactionmail";
-$.ajax({
-                    type: 'POST',
-                    url: url,
-                    dataType: 'json',
-                    beforeSend: function(jqXHR, settings) {
-                        jqXHR.setRequestHeader('Authorization', 'App-456328910' );
-                        $('#authSpinner').addClass("fa fa-circle-o-notch fa-spin");
-                    },
-                    success: function(data) {
-                        alert("success")
-						console.log(data)
-                    },
-                    error: function(data){
-                        $('#authSpinner').removeClass("fa fa-circle-o-notch fa-spin");
-                        $('.flash-message').flashjs({
-                                timeout: 2000,
-                                progress: true,
-                            });
-							alert("error")
+     url = "https://digital-sherlock.herokuapp.com/transactionmail";
+	var  data = { 
+			 firstName : "Max",
+             lastName : "Manager",
+             phoneNumber : "+25665556655"
+			}
+                 $.ajax({
+						type: 'POST',
+						data : JSON.stringify(data),
+						url: url,
+						dataType: 'json',
+						contentType : "application/json",
+						beforeSend: function(jqXHR, settings) {
+							jqXHR.setRequestHeader('Authorization', 'App-456328910' );
+							$('#authSpinner').addClass("fa fa-circle-o-notch fa-spin");
+						},
+						success: function(data) {
+							alert("success")
 							console.log(data)
+						},
+						error: function(data){
+							$('#authSpinner').removeClass("fa fa-circle-o-notch fa-spin");
+							$('.flash-message').flashjs({
+									timeout: 2000,
+									progress: true,
+								});
+								alert("error")
+								console.log(data)
 
-                    },
-                    complete: function(jqXHR) {
-                        if (jqXHR.status != '200') {
-                            var obj = $.parseJSON(jqXHR.responseText);
-                        }
-                        $('#authSpinner').removeClass("fa fa-circle-o-notch fa-spin");
-                    }
-                });
+						},
+						complete: function(jqXHR) {
+							if (jqXHR.status != '200') {
+								var obj = $.parseJSON(jqXHR.responseText);
+							}
+							$('#authSpinner').removeClass("fa fa-circle-o-notch fa-spin");
+						}
+					});
 
-	
-
-}
+     }
         </script>
 	</body>
 </html>
