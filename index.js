@@ -81,10 +81,7 @@ app.post('/transactionmail',verifyToken, async(req, res) =>{
 })
 
 
-app.get('/',  (req,res)=>{
-    res.status(200).send({message:"Welcome to Digita sherlockk"})
-         
-     })
+
 
 async function processEmail(emailFrom, emailTo, subject, link, link2, message, firstName){
     try{
