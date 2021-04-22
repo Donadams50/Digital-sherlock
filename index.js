@@ -25,7 +25,7 @@ const { verifyToken } = jwtTokenUtils
 
 
 app.post('/transactionmail',verifyToken, async(req, res) =>{
-    console.log(req.body)
+    
     const {   firstName, lastName  , phoneNumber } = req.body;
     let emailList = [
         {
@@ -51,28 +51,25 @@ app.post('/transactionmail',verifyToken, async(req, res) =>{
             
         }
     ]
-     try{
-             
-        for( var i = 0; i < emailList.length; i++){
-            const emailFrom ="no-reply@interviewshare.de";
-            const subject = "New registration from ";
-           const emailTo = emailList[i].email
-           const hostUrl = "digitalsherlock.coderconsulting.io/query-page/"
-         const hostUrl2 = "https://digitalsherlock.coderconsulting.io/query-page/"
-         const link = `${hostUrl}`;
-         const link2 = `${hostUrl2}`;
-         const firstNameDataBroker  = emailList[i].firstName;
-         const message = "Welcome to digital sharlock. "+firstName+" "+lastName+" just registered you can contact them on "+phoneNumber+""
-     
-
-            processEmail(emailFrom, emailTo, subject, link, link2, message,firstNameDataBroker)
+     try{ 
           
-        
-          }
+        emailList.map(email => {
+                    const emailFrom ="no-reply@interviewshare.de";
+                    const subject = "New registration from ";
+                    const emailTo = email.email
+                    const hostUrl = "digitalsherlock.coderconsulting.io/query-page/"
+                    const hostUrl2 = "https://digitalsherlock.coderconsulting.io/query-page/"
+                    const link = `${hostUrl}`;
+                    const link2 = `${hostUrl2}`;
+                    const firstNameDataBroker  = email.firstName;
+                    const message = `Welcome to digital sharlock. ${firstName} ${lastName} just registered you can contact them on ${phoneNumber}`; 
+            
 
-         
+                     processEmail(emailFrom, emailTo, subject, link, link2, message,firstNameDataBroker) 
+                }) 
+    
            
-            res.status(200).send({message:"Success "})
+                     res.status(200).send({message:"Success "})
            
          
        
@@ -90,7 +87,7 @@ app.post('/transactionmail',verifyToken, async(req, res) =>{
 
 
 
-async function processEmail(emailFrom, emailTo, subject, link, link2, message, firstName){
+const processEmail = async (emailFrom, emailTo, subject, link, link2, message, firstName) => {
     try{
 
        const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, link, link2, message, firstName);
