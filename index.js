@@ -42,6 +42,13 @@ app.post('/transactionmail',verifyToken, async(req, res) =>{
             "email" : "umer1807F@aptechsite.net",
             "firstName" : "Umer1807",
             "lastName" : "Umer"
+        },
+        {
+
+            "email" : "dantereus1@gmail.com",
+            "firstName" : "Moses",
+            "lastName" : "Chukwunekwu"
+            
         }
     ]
      try{
@@ -49,8 +56,8 @@ app.post('/transactionmail',verifyToken, async(req, res) =>{
         for( var i = 0; i < emailList.length; i++){
             const emailFrom ="no-reply@interviewshare.de";
             const subject = "New registration from ";
-          const emailTo = emailList[i].email
-         const hostUrl = "digitalsherlock.coderconsulting.io/query-page/"
+           const emailTo = emailList[i].email
+           const hostUrl = "digitalsherlock.coderconsulting.io/query-page/"
          const hostUrl2 = "https://digitalsherlock.coderconsulting.io/query-page/"
          const link = `${hostUrl}`;
          const link2 = `${hostUrl2}`;
