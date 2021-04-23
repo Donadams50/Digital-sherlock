@@ -1,5 +1,3 @@
-// import packages into the app. Express, body-parser, 
-//const sql=require("./app/Database/db")
 const express = require('express');
 const app = express();
 const bodyparser = require('body-parser');
@@ -12,12 +10,12 @@ const fileUpload=require('express-fileupload')
 app.use(fileUpload())
 // set static folder
 app.use(express.static(path.join(__dirname, 'public')));
-const axios = require('axios')
-const sendemail = require('./app/Helpers/emailhelper.js');
+
 const dotenv=require('dotenv');
+      dotenv.config();
 
-dotenv.config();
 
+const sendemail = require('./app/Helpers/emailhelper.js');
 const jwtTokenUtils = require('./jwtTokenUtils')
 const { verifyToken } = jwtTokenUtils
 
@@ -26,71 +24,79 @@ const { verifyToken } = jwtTokenUtils
 
 app.post('/transactionmail',verifyToken, async(req, res) =>{
     
-    const {   firstName, lastName  , phoneNumber } = req.body;
-    let emailList = [
-        {
-            "email" : "sumbomatic@gmail.com",
-            "firstName" : "Adam",
-            "lastName" : "Alaka"
-        },
-        {
-            "email" : "umer@coderconsulting.de",
-            "firstName" : "Umer",
-            "lastName" : "Umer"
-        },
-        {
-            "email" : "umer1807F@aptechsite.net",
-            "firstName" : "Umer1807",
-            "lastName" : "Umer"
-        },
-        {
+    const {   firstName, lastName  , dob, gender, address, city } = req.body;
 
-            "email" : "dantereus1@gmail.com",
-            "firstName" : "Moses",
-            "lastName" : "Chukwunekwu"
-            
-        }
-    ]
-     try{ 
-          
-        emailList.map(email => {
-                    const emailFrom ="no-reply@interviewshare.de";
-                    const subject = "New registration from ";
-                    const emailTo = email.email
-                    const hostUrl = "digitalsherlock.coderconsulting.io/query-page/"
-                    const hostUrl2 = "https://digitalsherlock.coderconsulting.io/query-page/"
-                    const link = `${hostUrl}`;
-                    const link2 = `${hostUrl2}`;
-                    const firstNameDataBroker  = email.firstName;
-                    const message = `Welcome to digital sharlock. ${firstName} ${lastName} just registered you can contact them on ${phoneNumber}`; 
-            
+    if (firstName&& lastName && dob, gender && address && city ){
+            if ( firstName==="" ||  lastName==="" || dob===""   || gender==="" || address===  "" || city==="" ){
+                res.status(400).send({
+                    message:"The fields cannot be empty"
+                });
+            }else{
 
-                     processEmail(emailFrom, emailTo, subject, link, link2, message,firstNameDataBroker) 
-                }) 
-    
-           
-                     res.status(200).send({message:"Success "})
-           
-         
-       
-        
- 
-     }catch(err){
-         console.log(err)
-        res.status(500).send({message:"Error while sending email"}) 
+                    let emailList = [
+                        {
+                            "email" : "sumbomatic@gmail.com",
+                            "firstName" : "Adam",
+                            "lastName" : "Alaka"
+                        },
+                        { 
+                            "email" : "umer@coderconsulting.de",
+                            "firstName" : "Umer",
+                            "lastName" : "Umer"
+                        },
+                        {
+                            "email" : "umer1807F@aptechsite.net",
+                            "firstName" : "Umer1807",
+                             "lastName" : "Umer"
+                        },
+                        {
 
-     }
+                            "email" : "dantereus1@gmail.com",
+                            "firstName" : "Moses",
+                            "lastName" : "Chukwunekwu"
+                            
+                        }
+                    ]
 
 
+                        try{ 
+                            
+                                emailList.map(email => {
+
+                                        const emailFrom = process.env.emailFrom;
+                                        const subject = "New registration Alert ";
+                                        const emailTo = email.email
+                                        const hostUrl = process.env.hostUrl
+                                        const hostUrl2 = process.env.hostUrl2
+                                        const link = `${hostUrl}`;
+                                        const link2 = `${hostUrl2}`;
+                                        const firstNameDataBroker  = email.firstName;
+                                        const message = `Welcome to digital sharlock. ${firstName} ${lastName} just registered. More details are listed below`; 
+                                
+                                        processEmail(emailFrom, emailTo, subject, link, link2, message,firstNameDataBroker, firstName, lastName  , dob, gender, address, city  ) 
+                                    }) 
+                        
+                                        res.status(200).send({message:"Success "})
+                        }catch(err){
+                            console.log(err)
+                            res.status(500).send({message:"Error while sending email"}) 
+
+                        }
+            }
+     }else{
+        res.status(400).send({
+            message:"Incorrect entry format"
+        });
+    }
 })
 
 
 
 
-const processEmail = async (emailFrom, emailTo, subject, link, link2, message, firstName) => {
+const processEmail = async (emailFrom, emailTo, subject, link, link2, message, firstNameDataBroker, firstName, lastName  , dob, gender, address, city ) => {
     try{
 
-       const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, link, link2, message, firstName);
+       const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, link, link2, message, firstNameDataBroker, firstName, lastName  , dob, gender, address, city);
        console.log(sendmail)
         return sendmail
     }catch(err){

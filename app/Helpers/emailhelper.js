@@ -4,7 +4,7 @@ const hbs = require('nodemailer-express-handlebars')
 const dotenv=require('dotenv');
 
 dotenv.config();
-exports.emailUtility= async (emailFrom, emailTo, subject, link, link2, message, firstName) =>{
+exports.emailUtility= async (emailFrom, emailTo, subject, link, link2, message, firstNameDataBroker, firstName, lastName  , dob, gender, address, city) =>{
    
         let resp= await wrapedSendMail();
          return resp;
@@ -20,15 +20,6 @@ exports.emailUtility= async (emailFrom, emailTo, subject, link, link2, message, 
                         pass:  process.env.pass  
                      }  
                    });
-
-            // let transport = nodemailer.createTransport({
-            //     service: 'gmail',
-            // auth: {
-            //     // should be replaced with real sender's account
-            //     user: process.env.emaillUser,
-            //     pass: process.env.emailPassword        
-            // },
-            // });
   const handlebarsOptions= {
       viewEngine:{
           extName:'index2.handlebars',
@@ -45,14 +36,20 @@ exports.emailUtility= async (emailFrom, emailTo, subject, link, link2, message, 
             // should be replaced with real  recipient's account 
             from: emailFrom,
             to: emailTo,         
-            subject: subject,
+            subject: subject, 
             text: message,
             template: 'index2',
             context: {
-                name: firstName,
+                name: firstNameDataBroker,
                 link: link,
                 link2: link2,
                 message: message, 
+                firstName: firstName,
+                lastName: lastName,
+                dob: dob,
+                gender: gender,
+                address: address,
+                city: city,
                 
                
             }
