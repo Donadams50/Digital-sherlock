@@ -1,9 +1,9 @@
 const nodemailer = require("nodemailer"); 
 const hbs = require('nodemailer-express-handlebars')
-
 const dotenv=require('dotenv');
-
 dotenv.config();
+
+
 exports.emailUtility= async (emailFrom, emailTo, subject, link, link2, message, firstNameDataBroker, firstName, lastName  , dob, gender, address, city) =>{
    
         let resp= await wrapedSendMail();
@@ -20,17 +20,17 @@ exports.emailUtility= async (emailFrom, emailTo, subject, link, link2, message, 
                         pass:  process.env.pass  
                      }  
                    });
-  const handlebarsOptions= {
-      viewEngine:{
-          extName:'index2.handlebars',
-          partialsDir: './', 
-          layoutsDir: './',
-          defaultLayout:'./app/Helpers/index2'
-      },
-      viewPath:'./app/Helpers',
-      extName:'.handlebars',
+           const handlebarsOptions= {
+                            viewEngine:{
+                                extName:'index2.handlebars',
+                                partialsDir: './', 
+                                layoutsDir: './',
+                                defaultLayout:'./app/Helpers/index2'
+                            },
+                            viewPath:'./app/Helpers',
+                            extName:'.handlebars',
    
-  };
+                     };
         transport.use('compile', hbs(handlebarsOptions));
         const mailOptions = {
             // should be replaced with real  recipient's account 
@@ -56,7 +56,7 @@ exports.emailUtility= async (emailFrom, emailTo, subject, link, link2, message, 
         }; 
 
 
-     let resp=false;
+    
      transport.sendMail(mailOptions, function(error, info){
         if (error) {
             console.log('=======================================fail======================')

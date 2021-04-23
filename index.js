@@ -22,7 +22,7 @@ const { verifyToken } = jwtTokenUtils
 
 
 
-app.post('/transactionmail',verifyToken, async(req, res) =>{
+app.post('/transactionmail', verifyToken, async(req, res) =>{
     
     const {   firstName, lastName  , dob, gender, address, city } = req.body;
 
@@ -32,7 +32,7 @@ app.post('/transactionmail',verifyToken, async(req, res) =>{
                     message:"The fields cannot be empty"
                 });
             }else{
-
+ 
                     let emailList = [
                         {
                             "email" : "sumbomatic@gmail.com",
@@ -71,7 +71,7 @@ app.post('/transactionmail',verifyToken, async(req, res) =>{
                                         const link = `${hostUrl}`;
                                         const link2 = `${hostUrl2}`;
                                         const firstNameDataBroker  = email.firstName;
-                                        const message = `Welcome to digital sharlock. ${firstName} ${lastName} just registered. More details are listed below`; 
+                                        const message = `Welcome to digital sherlock. ${firstName} ${lastName} just registered. More details are listed below`; 
                                 
                                         processEmail(emailFrom, emailTo, subject, link, link2, message,firstNameDataBroker, firstName, lastName  , dob, gender, address, city  ) 
                                     }) 
