@@ -3,11 +3,10 @@ const app = express();
 const bodyparser = require('body-parser');
 app.use(bodyparser.json());
 const cors = require("cors");
-const uuid = require('uuid')
+
 app.use(cors()); 
 const path = require('path')
-const fileUpload=require('express-fileupload')
-app.use(fileUpload())
+
 // set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -16,9 +15,25 @@ const dotenv=require('dotenv');
 
 
 const sendemail = require('./app/Helpers/emailhelper.js');
-const jwtTokenUtils = require('./jwtTokenUtils')
+const jwtTokenUtils = require('./app/Helpers/jwtTokenUtils')
 const { verifyToken } = jwtTokenUtils
 
+const db = require("./app/mongoose");
+console.log(db.url)
+db.mongoose
+  .connect(db.url, { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false 
+  })
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch(err => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
+ 
 
 
 
@@ -91,6 +106,7 @@ app.post('/transactionmail', verifyToken, async(req, res) =>{
 })
 
 
+ require('./app/brokersresponse/brokersresponse.routes')(app)
 
 
 const processEmail = async (emailFrom, emailTo, subject, link, link2, message, firstNameDataBroker, firstName, lastName  , dob, gender, address, city ) => {
