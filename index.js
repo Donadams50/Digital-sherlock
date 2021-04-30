@@ -87,7 +87,7 @@ app.post('/transactionmail', verifyToken, async(req, res) =>{
                                         const link2 = `${hostUrl2}`;
                                         const firstNameDataBroker  = email.firstName;
                                         const replyForm = "http://digitalsherlock.eu/email-reply-form/"
-                                        const message = `Welcome to digital sherlock. ${firstName} ${lastName} just registered. More details are listed below. Use the link below to sent back your response.  LINK : ${replyForm}`; 
+                                        const message = `Welcome to digital sherlock. ${firstName} ${lastName} just registered.  Use the link below to send back your response.  LINK : ${replyForm}`; 
                                 
                                         processEmail(emailFrom, emailTo, subject, link, link2, message,firstNameDataBroker, firstName, lastName  , dob, gender, address, city  ) 
                                     }) 
