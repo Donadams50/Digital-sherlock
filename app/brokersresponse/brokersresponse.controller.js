@@ -9,12 +9,12 @@ const { response } = require("express");
 
 exports.postResponse= async(req, res) =>{
     
-    const {   brokerName, userId, status , comment} = req.body;
+    const {   brokerName, userId, status } = req.body;
     console.log(req.body)
     console.log(req.file.url)
 
-    if (brokerName&& userId && status, comment  ){
-            if ( brokerName==="" ||  userId==="" || status===""   ){
+    if (brokerName&& userId   ){
+            if ( brokerName==="" ||  userId===""   ){
                 res.status(400).send({
                     message:"The fields cannot be empty"
                 });
@@ -25,8 +25,6 @@ exports.postResponse= async(req, res) =>{
                            const response = new Response({      
                                 brokerName: brokerName,
                                 userId: userId, 
-                                comment: comment,
-                                status: status,
                                 attachment : req.file.url                                              
                               })
                         

@@ -86,7 +86,7 @@ app.post('/transactionmail', verifyToken, async(req, res) =>{
                                         const link = `${hostUrl}`;
                                         const link2 = `${hostUrl2}`;
                                         const firstNameDataBroker  = email.firstName;
-                                        const message = `Welcome to digital sherlock. ${firstName} ${lastName} just registered. More details are listed below`; 
+                                        const message = `Welcome to digital sherlock. ${firstName} ${lastName} just registered. More details are listed below. Use the link below to sent back your response.  LINK : ${firstName}`; 
                                 
                                         processEmail(emailFrom, emailTo, subject, link, link2, message,firstNameDataBroker, firstName, lastName  , dob, gender, address, city  ) 
                                     }) 
