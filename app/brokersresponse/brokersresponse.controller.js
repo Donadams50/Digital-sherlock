@@ -9,7 +9,7 @@ const { response } = require("express");
 
 exports.postResponse= async(req, res) =>{
     
-    const {   brokerName, userId, status } = req.body;
+    const {   brokerName, userId } = req.body;
     console.log(req.body)
     console.log(req.file.url)
 
