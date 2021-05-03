@@ -35,7 +35,7 @@ db.mongoose
   });
  
 
-
+  const Broker = db.brokers;
 
 app.post('/transactionmail', verifyToken, async(req, res) =>{
     
@@ -47,31 +47,33 @@ app.post('/transactionmail', verifyToken, async(req, res) =>{
                     message:"The fields cannot be empty"
                 });
             }else{
+                
+                const emailList = await Broker.find().sort({"_id": -1})
  
-                    let emailList = [
-                        {
-                            "email" : "sumbomatic@gmail.com",
-                            "firstName" : "Adam",
-                            "lastName" : "Alaka"
-                        },
-                        { 
-                            "email" : "umer@coderconsulting.de",
-                            "firstName" : "Umer",
-                            "lastName" : "Umer"
-                        },
-                        {
-                            "email" : "umer1807F@aptechsite.net",
-                            "firstName" : "Umer1807",
-                             "lastName" : "Umer"
-                        },
-                        {
+                    // let emailList = [
+                    //     {
+                    //         "email" : "sumbomatic@gmail.com",
+                    //         "firstName" : "Adam",
+                    //         "lastName" : "Alaka"
+                    //     },
+                    //     { 
+                    //         "email" : "umer@coderconsulting.de",
+                    //         "firstName" : "Umer",
+                    //         "lastName" : "Umer"
+                    //     },
+                    //     {
+                    //         "email" : "umer1807F@aptechsite.net",
+                    //         "firstName" : "Umer1807",
+                    //          "lastName" : "Umer"
+                    //     },
+                    //     {
 
-                            "email" : "dantereus1@gmail.com",
-                            "firstName" : "Moses",
-                            "lastName" : "Chukwunekwu"
+                    //         "email" : "dantereus1@gmail.com",
+                    //         "firstName" : "Moses",
+                    //         "lastName" : "Chukwunekwu"
                             
-                        }
-                    ]
+                    //     }
+                    // ]
 
 
                         try{ 
@@ -80,12 +82,12 @@ app.post('/transactionmail', verifyToken, async(req, res) =>{
 
                                         const emailFrom = process.env.emailFrom;
                                         const subject = "New registration Alert ";
-                                        const emailTo = email.email
+                                        const emailTo = email.brokerEmail
                                         const hostUrl = process.env.hostUrl
                                         const hostUrl2 = process.env.hostUrl2
                                         const link = `${hostUrl}`;
                                         const link2 = `${hostUrl2}`;
-                                        const firstNameDataBroker  = email.firstName;
+                                        const firstNameDataBroker  = email.brokerFirstName;
                                         const replyForm = "http://digitalsherlock.eu/email-reply-form/"
                                         const message = `Welcome to digital sherlock. ${firstName} ${lastName} just registered.  Use the link below to send back your response.  LINK : ${replyForm}`; 
                                 
@@ -108,7 +110,7 @@ app.post('/transactionmail', verifyToken, async(req, res) =>{
 
 
  require('./app/brokersresponse/brokersresponse.routes')(app)
-
+ require('./app/brokers/brokers.routes')(app)
 
 const processEmail = async (emailFrom, emailTo, subject, link, link2, message, firstNameDataBroker, firstName, lastName  , dob, gender, address, city ) => {
     try{

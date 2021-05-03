@@ -9,6 +9,6 @@ db.url = process.env.url;
 
 
 db.responses = require("../brokersresponse/brokersresponse.model.js")(mongoose);
-
+db.brokers = require("../brokers/brokers.model.js")(mongoose);
 
 module.exports = db;
