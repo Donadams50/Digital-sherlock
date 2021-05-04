@@ -39,7 +39,7 @@ exports.postBroker= async(req, res) =>{
                             brokerEmail : brokerEmail                                             
                               })
                           
-                            const isUserExist = await broker.findOne({brokerEmail: brokerEmail})
+                            const isUserExist = await Broker.findOne({brokerEmail: brokerEmail})
                             if(isUserExist){
                                 res.status(400).send({message:" Email already exists"})
                            }else{
