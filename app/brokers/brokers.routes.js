@@ -10,6 +10,8 @@ module.exports = app => {
 
 
        app.get("/brokers", verifyToken,  brokersresponse.getBrokers)
+
+       app.delete("/broker/:id", verifyToken,  brokersresponse.deleteBroker)
      
 }
 

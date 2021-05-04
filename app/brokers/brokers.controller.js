@@ -38,13 +38,15 @@ exports.postBroker= async(req, res) =>{
                             brokerLastName: brokerLastName, 
                             brokerEmail : brokerEmail                                             
                               })
-                        
-                        const postBroker = await  broker.save()
-
-
-                                    
-                        
-                                        res.status(200).send({message:"Successfully posted broker"})
+                          
+                            const isUserExist = await broker.findOne({brokerEmail: brokerEmail})
+                            if(isUserExist){
+                                res.status(400).send({message:" Email already exists"})
+                           }else{
+                            const postBroker = await  broker.save()
+                            
+                            res.status(200).send({message:"Successfully posted broker"})
+                           }
                         }catch(err){
                             console.log(err)
                             res.status(500).send({message:"Error while posting databroker response"}) 
