@@ -65,7 +65,7 @@ exports.deleteBroker = async (req, res) => {
         const id = req.params.id;
     
       
-        const findBroker = await Subcategory.findOne({_id: id});
+        const findBroker = await Broker.findOne({_id: id});
              if(findBroker ){
                 const deleteBroker= await Broker.findByIdAndRemove(id)
                 res.status(200).send({message:"Deleted succesfully"})
