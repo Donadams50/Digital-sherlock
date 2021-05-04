@@ -81,3 +81,49 @@ exports.deleteBroker = async (req, res) => {
            res.status(500).send({message:"Error while deleting broker "})
        }
 }
+
+exports.updateDataBroker = async(req, res) => {
+    const _id = req.params.id;
+
+    const { brokerEmail,brokerLastName,brokerFirstName } = req.body;
+  
+    if ( brokerEmail && brokerLastName   && brokerFirstName  ){
+          if ( brokerEmail==="" ||  brokerLastName==="" || brokerFirstName===""){
+            res.status(400).send({
+                message:"Incorrect entry format5"
+            });
+        }else{
+           
+                  
+            const broker = new Broker({
+                _id : _id,
+                brokerLastName: brokerLastName,
+                brokerEmail: brokerEmail,
+                brokerFirstName: brokerFirstName
+                
+              });
+             
+    
+         
+            try{
+                const updateBroker = await Broker.updateOne( {_id}, broker)
+                                        
+                 res.status(201).send({message:" Broker updated succesfully"})
+                
+                
+            }catch(err){
+                console.log(err)
+                res.status(500).send({message:"Error while updating broker "})
+            }
+          
+          
+   
+          
+        }
+    }else{
+        res.status(400).send({
+            message:"Incorrect entry format6"
+        });
+    }
+                   
+}
