@@ -59,3 +59,25 @@ exports.postBroker= async(req, res) =>{
         });
     }
 }
+
+exports.deleteBroker = async (req, res) => {
+    try{
+        const id = req.params.id;
+    
+      
+        const findBroker = await Subcategory.findOne({_id: id});
+             if(findBroker ){
+                const deleteBroker= await Broker.findByIdAndRemove(id)
+                res.status(200).send({message:"Deleted succesfully"})
+             }else{
+                res.status(400).send({message:"Broker does not exists"})
+             }
+          
+           
+       
+         
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while deleting broker "})
+       }
+}
