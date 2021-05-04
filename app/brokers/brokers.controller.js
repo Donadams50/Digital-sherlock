@@ -108,7 +108,7 @@ exports.updateDataBroker = async(req, res) => {
             try{
                 const updateBroker = await Broker.updateOne( {_id}, broker)
                                         
-                 res.status(201).send({message:" Broker updated succesfully"})
+                 res.status(200).send({message:" Broker updated succesfully"})
                 
                 
             }catch(err){
