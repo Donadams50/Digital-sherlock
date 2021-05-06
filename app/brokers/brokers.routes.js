@@ -14,6 +14,8 @@ module.exports = app => {
        app.delete("/broker/:id", verifyToken,  brokersresponse.deleteBroker)
 
        app.put("/broker/:id", verifyToken,  brokersresponse.updateDataBroker)
+
+       app.get("/broker/:id", verifyToken,  brokersresponse.getDataBrokerById)
 }
 
           

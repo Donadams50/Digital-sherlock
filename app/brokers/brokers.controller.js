@@ -127,3 +127,18 @@ exports.updateDataBroker = async(req, res) => {
     }
                    
 }
+
+
+
+exports.getDataBrokerById = async (req, res) => {
+    try{
+            const id = req.paramsid
+            const findBrokerById = await Broker.findOne({_id : id}).sort({"_id": -1})
+             
+            res.status(200).send(findBrokerById)
+      
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting brokers "})
+       }
+};
