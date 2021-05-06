@@ -132,7 +132,7 @@ exports.updateDataBroker = async(req, res) => {
 
 exports.getDataBrokerById = async (req, res) => {
     try{
-            const id = req.paramsid
+            const id = req.params.id
             const findBrokerById = await Broker.findOne({_id : id}).sort({"_id": -1})
              
             res.status(200).send(findBrokerById)
