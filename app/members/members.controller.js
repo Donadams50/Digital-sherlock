@@ -132,7 +132,7 @@ if ( email && password  ){
                 
     
            }else{
-            res.status(400).send({message:" User does not exists"})
+            res.status(400).send({message:" User does not exist"})
            }
                    
             
@@ -147,8 +147,6 @@ if ( email && password  ){
     });
 }
 };
-
-
 
 
 
