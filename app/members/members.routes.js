@@ -1,6 +1,6 @@
 module.exports = app => {
     const member = require("./members.controller");
-    const jwtTokenUtils = require('../helpers/jwtTokenUtils')
+    const jwtTokenUtils = require('../Helpers/jwtTokenUtils')
     const { verifyToken ,  isExchanger, isAdminOrSubadmin, isAdmin} = jwtTokenUtils;
     
 
