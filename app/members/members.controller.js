@@ -19,7 +19,7 @@ exports.create = async(req,res)=>{
     if (!req.body){
         res.status(400).send({message:"Content cannot be empty"});
     }
-    console.log(req.body)
+    
    
     const { firstName,lastName,email,password, role } = req.body;
   
@@ -82,6 +82,7 @@ exports.signIn = async(req, res) => {
   if (!req.body){
     res.status(400).send({message:"Content cannot be empty"});
 }
+console.log(req.body)
 
 const {   email, password  } = req.body;
  
