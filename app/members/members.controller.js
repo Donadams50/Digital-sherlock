@@ -19,8 +19,8 @@ exports.create = async(req,res)=>{
     if (!req.body){
         res.status(400).send({message:"Content cannot be empty"});
     }
-    
-    const codeGenerated =  getCode();
+    console.log(req.body)
+   
     const { firstName,lastName,email,password, role } = req.body;
   
     if ( firstName && role  && lastName && email && password  ){
@@ -51,7 +51,7 @@ exports.create = async(req,res)=>{
                                           
                                                 if(saveauth._id){
                                                     const savemember = await  members.save()
-                                                    console.log(savemember)
+                                                  //  console.log(savemember)
                                                     if( savemember._id){
                                                                   
                                                    res.status(201).send({message:"Admin created"})
