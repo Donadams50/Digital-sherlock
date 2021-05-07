@@ -111,6 +111,7 @@ app.post('/transactionmail', verifyToken, async(req, res) =>{
 
  require('./app/brokersresponse/brokersresponse.routes')(app)
  require('./app/brokers/brokers.routes')(app)
+ require('./app/members/members.routes')(app)
 
 const processEmail = async (emailFrom, emailTo, subject, link, link2, message, firstNameDataBroker, firstName, lastName  , dob, gender, address, city ) => {
     try{

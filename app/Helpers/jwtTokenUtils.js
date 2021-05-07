@@ -5,7 +5,11 @@ dotenv.config();
   
 
 
-
+exports.signToken= (id, firstName,   lastName,  email, role)=> {
+  const key = process.env.SECRET_KEY;
+  const token = jwt.sign({ id: id, firstName:firstName ,  lastName:lastName ,  email:email , role: role }, key, { expiresIn: '1h' });
+  return token;
+}
   exports.verifyToken= (req, res, next)=> { 
     console.log(req.headers.authorization || req.params.token)
     const key = process.env.appKey;
